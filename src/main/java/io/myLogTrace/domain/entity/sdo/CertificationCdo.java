@@ -1,8 +1,6 @@
-package io.myLogTrace.domain.sdo;
+package io.myLogTrace.domain.entity.sdo;
 
 import lombok.Getter;
-
-import java.io.File;
 
 @Getter
 public class CertificationCdo {
@@ -10,5 +8,5 @@ public class CertificationCdo {
     private String name;
     private String date;
     private String instituteName;
-    private File image;
+    private String imageId;
 }
