@@ -1,10 +1,8 @@
 package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.common.exception.LogException;
-import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
+import io.myLogTrace.domain.entity.sdo.ProfileCdo;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Objects;
 
@@ -14,36 +12,27 @@ import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGT
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder(access = AccessLevel.PRIVATE)
-@Entity
 public class Profile {
     //
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(length = 40)
     private String name; // 이름
-    @Column(length = 10)
     private String birthDate; // 생년월일, 0000-00-00
-    @Column(length = 20)
     private String phoneNumber; // 전화번호
-    @Column(length = 200)
     private String remark; // 한마디
-    @CreatedDate
     private Long registeredOn; // 등록일시
 
-    public static Profile create(
-            final String name, final @Nullable String birthDate, final String phoneNumber, final String remark) {
+    public static Profile create(ProfileCdo cdo) {
         //
-        if (name.length() > 20 || Objects.requireNonNull(birthDate).length() > 10
-                || phoneNumber.length() > 20 || remark.length() > 100) {
+        if (cdo.getName().length() > 20 || Objects.requireNonNull(cdo.getBirthDate()).length() > 10
+                || cdo.getPhoneNumber().length() > 20 || cdo.getRemark().length() > 100) {
             throw LogException.of(LENGTH_OVER_ERROR);
         }
 
         return Profile.builder()
-                .name(name)
-                .birthDate(birthDate)
-                .phoneNumber(phoneNumber)
-                .remark(remark)
+                .name(cdo.getName())
+                .birthDate(cdo.getBirthDate())
+                .phoneNumber(cdo.getPhoneNumber())
+                .remark(cdo.getRemark())
                 .build();
     }
 }

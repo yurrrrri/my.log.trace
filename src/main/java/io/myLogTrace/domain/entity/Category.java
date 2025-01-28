@@ -2,24 +2,18 @@ package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.domain.vo.ColorType;
-import jakarta.persistence.*;
 import lombok.*;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.*;
+import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder(access = AccessLevel.PRIVATE)
-@Entity
 public class Category {
     //
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(length = 20)
     private String name; // 명칭
-    @Enumerated
     private ColorType colorType; // 배경색
     private boolean removed; // 삭제여부
 
