@@ -1,10 +1,8 @@
-package io.myLogTrace.domain.sdo;
+package io.myLogTrace.domain.entity.sdo;
 
 import io.myLogTrace.domain.vo.FeelingComment;
 import io.myLogTrace.domain.vo.WeatherComment;
 import lombok.Getter;
-
-import java.io.File;
 
 @Getter
 public class JournalCdo {
@@ -13,8 +11,8 @@ public class JournalCdo {
     private WeatherComment weatherComment;
     private FeelingComment feelingComment;
     private String contents;
-    private File image1;
-    private File image2;
+    private String image1Id;
+    private String image2Id;
     private String memo;
     private Boolean saved;
     private Boolean locked;

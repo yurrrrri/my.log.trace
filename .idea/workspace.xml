@@ -4,7 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="928d9fdd-4370-472c-9f4b-dc9579353dd1" name="Changes" comment="" />
+    <list default="true" id="928d9fdd-4370-472c-9f4b-dc9579353dd1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/AnniversaryJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/CategoryJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/CertificationJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/HistoryJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/ImageJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/JournalJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/ProfileJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/SettingsJpo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/repository/jpo/TodoJpo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/common/exception/LogException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/common/exception/LogException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Anniversary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Anniversary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Certification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Certification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/History.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/History.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Image.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Journal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Journal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/AnniversaryCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/AnniversaryCdo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/CategoryCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/CategoryCdo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/CertificationCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/CertificationCdo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/HistoryCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/HistoryCdo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/JournalCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/JournalCdo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/ProfileCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/ProfileCdo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/SettingsCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/SettingsCdo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/sdo/TodoCdo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/myLogTrace/domain/entity/sdo/TodoCdo.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,31 +78,57 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "yurrrrri"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yurrrrri/my.log.trace",
+    "accountId": "61330694-938b-42b1-ada5-f717fc5a1a57"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2s50MdiSoP72T0rH0kanRjjVsip" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.myLogTrace [:io.myLogTrace.MyLogTraceBootApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sonyuri/Desktop/projects/myLogTrace/src/main/resources&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build myLogTrace.executor": "Run",
+    "Gradle.myLogTrace [:io.myLogTrace.MyLogTraceBootApplication.main()].executor": "Run",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sonyuri/Desktop/projects/myLogTrace/src/main/java/io/myLogTrace/domain/entity",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sonyuri\Desktop\projects\myLogTrace\src\main\java\io\myLogTrace\domain\entity" />
+      <recent name="C:\Users\sonyuri\Desktop\projects\myLogTrace\src\main\java\io\myLogTrace\repository\jpo" />
       <recent name="C:\Users\sonyuri\Desktop\projects\myLogTrace\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="io.myLogTrace.repository" />
+      <recent name="io.myLogTrace.domain.entity.sdo" />
+      <recent name="io.myLogTrace.domain.sdo" />
+      <recent name="io.myLogTrace.repository.jpo" />
       <recent name="io.myLogTrace.domain.vo" />
+      <recent name="io.myLogTrace.repository" />
     </key>
   </component>
   <component name="RunManager">

@@ -1,4 +1,4 @@
-package io.myLogTrace.domain.sdo;
+package io.myLogTrace.domain.entity.sdo;
 
 import io.myLogTrace.domain.vo.DateType;
 import io.myLogTrace.domain.vo.Weight;
