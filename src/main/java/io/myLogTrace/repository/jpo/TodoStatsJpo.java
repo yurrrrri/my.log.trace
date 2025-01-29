@@ -21,7 +21,7 @@ public class TodoStatsJpo {
     private String id;
     @Enumerated(EnumType.STRING)
     private Strategy strategy; // 통계 기준 (월별/분기별/연도별)
-    @Column(length = 10)
+    @Column(length = 6)
     private String date; // 기간, YYYYMM
     @Enumerated(EnumType.STRING)
     private Status status; // 상태(현황)

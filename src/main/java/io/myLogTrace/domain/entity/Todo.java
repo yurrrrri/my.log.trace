@@ -1,6 +1,5 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.common.policy.DateTimePolicy;
 import io.myLogTrace.domain.entity.sdo.TodoCdo;
 import io.myLogTrace.domain.vo.Status;
@@ -8,8 +7,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.DATETIME_NOT_VALID;
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_OVER_ERROR;
+import static io.myLogTrace.common.exception.LogExceptionCode.DATETIME_NOT_VALID;
+import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
@@ -30,9 +29,9 @@ public class Todo {
     public static Todo create(TodoCdo cdo) {
         //
         if (cdo.getContents().length() > 30 || cdo.getMemo().length() > 50)
-            throw LogException.of(LENGTH_OVER_ERROR);
+            throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         if (!DateTimePolicy.isValid(cdo.getStartDateTime(), cdo.getEndDateTime()))
-            throw LogException.of(DATETIME_NOT_VALID);
+            throw new IllegalArgumentException(DATETIME_NOT_VALID.name());
 
         return Todo.builder()
                 .categoryId(cdo.getCategoryId())

@@ -1,12 +1,11 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.domain.entity.sdo.JournalCdo;
 import io.myLogTrace.domain.vo.FeelingComment;
 import io.myLogTrace.domain.vo.WeatherComment;
 import lombok.*;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_OVER_ERROR;
+import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
@@ -32,7 +31,7 @@ public class Journal {
         if (cdo.getDate().length() > 10 || cdo.getWeatherComment().getComment().length() > 20
                 || cdo.getFeelingComment().getComment().length() > 30 || cdo.getContents().length() > 1000
                 || cdo.getMemo().length() > 100) {
-            throw LogException.of(LENGTH_OVER_ERROR);
+            throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         }
 
         return Journal.builder()

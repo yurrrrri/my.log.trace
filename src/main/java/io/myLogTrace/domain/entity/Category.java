@@ -1,10 +1,9 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.domain.vo.ColorType;
 import lombok.*;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_OVER_ERROR;
+import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
@@ -20,7 +19,9 @@ public class Category {
     public static Category create(
             final String name, final ColorType colorType, final boolean removed) {
         //
-        if (name.length() > 10) throw LogException.of(LENGTH_OVER_ERROR);
+        if (name.length() > 10) {
+            throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
+        }
 
         return Category.builder()
                 .name(name)

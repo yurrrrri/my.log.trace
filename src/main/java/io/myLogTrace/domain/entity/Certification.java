@@ -1,10 +1,9 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.domain.entity.sdo.CertificationCdo;
 import lombok.*;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_OVER_ERROR;
+import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
@@ -23,7 +22,7 @@ public class Certification {
     public static Certification create(CertificationCdo cdo) {
         //
         if (cdo.getName().length() > 20 || cdo.getDate().length() > 10 || cdo.getInstituteName().length() > 20) {
-            throw LogException.of(LENGTH_OVER_ERROR);
+            throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         }
 
         return Certification.builder()
