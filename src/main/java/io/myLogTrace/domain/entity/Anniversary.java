@@ -1,12 +1,11 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.domain.entity.sdo.AnniversaryCdo;
 import io.myLogTrace.domain.vo.DateType;
 import io.myLogTrace.domain.vo.Weight;
 import lombok.*;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_OVER_ERROR;
+import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
@@ -24,7 +23,9 @@ public class Anniversary {
 
     public static Anniversary create(AnniversaryCdo cdo) {
         //
-        if (cdo.getName().length() > 20) throw LogException.of(LENGTH_OVER_ERROR);
+        if (cdo.getName().length() > 20) {
+            throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
+        }
 
         return Anniversary.builder()
                 .dateType(cdo.getDateType())

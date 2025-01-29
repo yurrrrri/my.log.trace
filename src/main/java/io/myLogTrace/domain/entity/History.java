@@ -1,13 +1,12 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.common.policy.DateTimePolicy;
 import io.myLogTrace.domain.entity.sdo.HistoryCdo;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.DATETIME_NOT_VALID;
+import static io.myLogTrace.common.exception.LogExceptionCode.DATETIME_NOT_VALID;
 
 @Getter
 @NoArgsConstructor
@@ -26,7 +25,7 @@ public class History {
     public static History create(HistoryCdo cdo) {
         //
         if (!DateTimePolicy.isValid(cdo.getStartDateTime(), cdo.getEndDateTime()))
-            throw LogException.of(DATETIME_NOT_VALID);
+            throw new IllegalArgumentException(DATETIME_NOT_VALID.name());
 
         return History.builder()
                 .title(cdo.getTitle())

@@ -1,12 +1,11 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.domain.entity.sdo.ProfileCdo;
 import lombok.*;
 
 import java.util.Objects;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_OVER_ERROR;
+import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
@@ -25,7 +24,7 @@ public class Profile {
         //
         if (cdo.getName().length() > 20 || Objects.requireNonNull(cdo.getBirthDate()).length() > 10
                 || cdo.getPhoneNumber().length() > 20 || cdo.getRemark().length() > 100) {
-            throw LogException.of(LENGTH_OVER_ERROR);
+            throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         }
 
         return Profile.builder()

@@ -1,12 +1,11 @@
 package io.myLogTrace.domain.entity;
 
-import io.myLogTrace.common.exception.LogException;
 import io.myLogTrace.domain.entity.sdo.FeelingStatsCdo;
 import io.myLogTrace.domain.vo.Feeling;
 import io.myLogTrace.domain.vo.Strategy;
 import lombok.*;
 
-import static io.myLogTrace.common.exception.LogException.LogExceptionCode.LENGTH_TOO_SHORT;
+import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_TOO_SHORT;
 
 @Getter
 @NoArgsConstructor
@@ -23,7 +22,9 @@ public class FeelingStats {
 
     public static FeelingStats create(FeelingStatsCdo cdo) {
         //
-        if (cdo.getDate().length() < 6) throw LogException.of(LENGTH_TOO_SHORT);
+        if (cdo.getDate().length() < 6) {
+            throw new IllegalArgumentException(LENGTH_TOO_SHORT.name());
+        }
 
         return FeelingStats.builder()
                 .strategy(cdo.getStrategy())
