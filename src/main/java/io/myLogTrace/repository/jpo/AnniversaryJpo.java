@@ -1,5 +1,7 @@
 package io.myLogTrace.repository.jpo;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import io.myLogTrace.domain.entity.Anniversary;
 import io.myLogTrace.domain.vo.DateType;
 import io.myLogTrace.domain.vo.Weight;
 import jakarta.persistence.*;
@@ -9,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -32,4 +36,9 @@ public class AnniversaryJpo {
     private Long registeredOn; // 등록일시
     @LastModifiedDate
     private Long modifiedOn; // 변경일시
+
+    public static List<Anniversary> toDomains(JPAQuery<AnniversaryJpo> jpos) {
+        //
+        return jpos.stream().map(Anniversary::toDomain).toList();
+    }
 }

@@ -9,7 +9,7 @@ spring:
       on-profile: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/myLogTrace?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/mylogtrace?serverTimezone=Asia/Seoul
     username: system
     password: ${DB_PASSWORD}
   jpa:
