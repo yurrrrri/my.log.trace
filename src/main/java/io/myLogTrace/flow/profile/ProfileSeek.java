@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping("/profile")
+@RequestMapping("/profiles")
 @RestController
 public class ProfileSeek {
 }
