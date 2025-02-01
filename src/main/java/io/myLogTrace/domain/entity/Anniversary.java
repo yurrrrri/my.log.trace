@@ -3,15 +3,18 @@ package io.myLogTrace.domain.entity;
 import io.myLogTrace.domain.entity.sdo.AnniversaryCdo;
 import io.myLogTrace.domain.vo.DateType;
 import io.myLogTrace.domain.vo.Weight;
-import io.myLogTrace.repository.jpo.AnniversaryJpo;
-import lombok.*;
+import io.myLogTrace.repository.jpa.AnniversaryJpo;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Anniversary {
     //
     private String id;
@@ -24,15 +27,9 @@ public class Anniversary {
 
     public static Anniversary toDomain(AnniversaryJpo jpo) {
         //
-        return Anniversary.builder()
-                .id(jpo.getId())
-                .dateType(jpo.getDateType())
-                .date(jpo.getDate())
-                .name(jpo.getName())
-                .weight(jpo.getWeight())
-                .registeredOn(jpo.getRegisteredOn())
-                .modifiedOn(jpo.getModifiedOn())
-                .build();
+        Anniversary anniversary = new Anniversary();
+        BeanUtils.copyProperties(jpo, anniversary);
+        return anniversary;
     }
 
     public static Anniversary create(AnniversaryCdo cdo) {
@@ -40,12 +37,8 @@ public class Anniversary {
         if (cdo.getName().length() > 20) {
             throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         }
-
-        return Anniversary.builder()
-                .dateType(cdo.getDateType())
-                .date(cdo.getDate())
-                .name(cdo.getName())
-                .weight(cdo.getWeight())
-                .build();
+        Anniversary anniversary = new Anniversary();
+        BeanUtils.copyProperties(cdo, anniversary);
+        return anniversary;
     }
 }

@@ -3,14 +3,18 @@ package io.myLogTrace.domain.entity;
 import io.myLogTrace.domain.entity.sdo.JournalCdo;
 import io.myLogTrace.domain.vo.FeelingComment;
 import io.myLogTrace.domain.vo.WeatherComment;
-import lombok.*;
+import io.myLogTrace.repository.jpa.JournalJpo;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Journal {
     //
     private String id;
@@ -26,6 +30,19 @@ public class Journal {
     private Long registeredOn; // 등록일시
     private Long modifiedOn; // 변경일시
 
+    public void changeImages(String imageId1, String imageId2) {
+        this.imageId1 = imageId1;
+        this.imageId2 = imageId2;
+    }
+
+    public void saved() {
+        this.saved = true;
+    }
+
+    public void changeLocked() {
+        this.locked = !locked;
+    }
+
     public static Journal create(JournalCdo cdo) {
         //
         if (cdo.getDate().length() > 10 || cdo.getWeatherComment().getComment().length() > 20
@@ -33,17 +50,15 @@ public class Journal {
                 || cdo.getMemo().length() > 100) {
             throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         }
+        Journal journal = new Journal();
+        BeanUtils.copyProperties(cdo, journal);
+        return journal;
+    }
 
-        return Journal.builder()
-                .date(cdo.getDate())
-                .weatherComment(cdo.getWeatherComment())
-                .feelingComment(cdo.getFeelingComment())
-                .contents(cdo.getContents())
-                .imageId1(cdo.getImage1Id())
-                .imageId2(cdo.getImage2Id())
-                .memo(cdo.getMemo())
-                .saved(cdo.getSaved())
-                .locked(cdo.getLocked())
-                .build();
+    public static Journal toDomain(JournalJpo jpo) {
+        //
+        Journal journal = new Journal();
+        BeanUtils.copyProperties(jpo, journal);
+        return journal;
     }
 }

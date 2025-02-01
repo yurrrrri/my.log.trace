@@ -1,12 +1,15 @@
 package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.domain.entity.sdo.ImageCdo;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Image {
     //
     private String id;
@@ -17,10 +20,8 @@ public class Image {
 
     public static Image create(ImageCdo cdo) {
         //
-        return Image.builder()
-                .fileName(cdo.getFileName())
-                .path(cdo.getPath())
-                .forJournal(cdo.isForJournal())
-                .build();
+        Image image = new Image();
+        BeanUtils.copyProperties(cdo, image);
+        return image;
     }
 }

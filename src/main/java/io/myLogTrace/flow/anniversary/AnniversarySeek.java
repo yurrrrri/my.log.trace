@@ -2,12 +2,9 @@ package io.myLogTrace.flow.anniversary;
 
 import io.myLogTrace.domain.entity.Anniversary;
 import io.myLogTrace.service.AnniversaryService;
-import io.myLogTrace.service.vo.AnniversarySearchType;
+import io.myLogTrace.service.vo.ViewType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,21 +15,21 @@ public class AnniversarySeek {
     //
     private final AnniversaryService anniversaryService;
 
-    @GetMapping("/daily/{date}")
-    public List<Anniversary> findDailyAnniversaries(@PathVariable String date) {
+    @GetMapping("/daily")
+    public List<Anniversary> findDailyAnniversaries(@RequestParam String date) {
         //
-        return anniversaryService.findAnniversaries(date, AnniversarySearchType.DAILY);
+        return anniversaryService.findAnniversaries(date, ViewType.DAILY);
     }
 
-    @GetMapping("/weekly/{date}")
-    public List<Anniversary> findWeeklyAnniversaries(@PathVariable String date) {
+    @GetMapping("/weekly")
+    public List<Anniversary> findWeeklyAnniversaries(@RequestParam String date) {
         //
-        return anniversaryService.findAnniversaries(date, AnniversarySearchType.WEEKLY);
+        return anniversaryService.findAnniversaries(date, ViewType.WEEKLY);
     }
 
-    @GetMapping("/monthly/{date}")
-    public List<Anniversary> findMonthlyAnniversaries(@PathVariable String date) {
+    @GetMapping("/monthly")
+    public List<Anniversary> findMonthlyAnniversaries(@RequestParam String date) {
         //
-        return anniversaryService.findAnniversaries(date, AnniversarySearchType.MONTHLY);
+        return anniversaryService.findAnniversaries(date, ViewType.MONTHLY);
     }
 }

@@ -1,8 +1,8 @@
 package io.myLogTrace.flow.anniversary;
 
+import io.myLogTrace.command.ModifyAnniversary;
 import io.myLogTrace.domain.entity.sdo.AnniversaryCdo;
 import io.myLogTrace.service.AnniversaryService;
-import io.myLogTrace.service.sdo.AnniversaryUdo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +20,15 @@ public class AnniversaryFlow {
         return anniversaryService.create(cdo);
     }
 
-    @PatchMapping("/{id}")
-    public String update(@PathVariable String id, @Valid @RequestBody AnniversaryUdo udo) {
+    @PatchMapping("")
+    public String update(@Valid @RequestBody ModifyAnniversary command) {
         //
-        return anniversaryService.update(id, udo);
+        return anniversaryService.update(command);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        //
+        anniversaryService.delete(id);
     }
 }

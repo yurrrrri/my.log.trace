@@ -1,32 +1,42 @@
 package io.myLogTrace.domain.entity;
 
+import io.myLogTrace.domain.entity.sdo.CategoryCdo;
 import io.myLogTrace.domain.vo.ColorType;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Category {
     //
     private String id;
     private String name; // 명칭
     private ColorType colorType; // 배경색
+    private Integer orderNo; // 정렬 순서
     private boolean removed; // 삭제여부
 
-    public static Category create(
-            final String name, final ColorType colorType, final boolean removed) {
+    public void setRemovedTrue() {
+        this.removed = true;
+    }
+
+    public void setRemovedFalse() {
+        this.removed = false;
+    }
+
+    public static Category create(CategoryCdo cdo) {
         //
-        if (name.length() > 10) {
+        if (cdo.getName().length() > 10) {
             throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         }
-
-        return Category.builder()
-                .name(name)
-                .colorType(colorType)
-                .removed(removed)
-                .build();
+        Category category = new Category();
+        BeanUtils.copyProperties(cdo, category);
+        category.setRemovedFalse();
+        return category;
     }
 }

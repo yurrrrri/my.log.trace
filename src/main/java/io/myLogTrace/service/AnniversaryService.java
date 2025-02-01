@@ -1,13 +1,14 @@
 package io.myLogTrace.service;
 
+import io.myLogTrace.command.ModifyAnniversary;
 import io.myLogTrace.common.exception.DuplicateDataException;
 import io.myLogTrace.domain.entity.Anniversary;
 import io.myLogTrace.domain.entity.sdo.AnniversaryCdo;
 import io.myLogTrace.repository.AnniversaryRepository;
 import io.myLogTrace.service.customstore.AnniversaryCustomStore;
-import io.myLogTrace.service.sdo.AnniversaryUdo;
-import io.myLogTrace.service.vo.AnniversarySearchType;
+import io.myLogTrace.service.vo.ViewType;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -20,16 +21,17 @@ import static io.myLogTrace.common.exception.LogExceptionCode.DATA_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AnniversaryService {
     //
     private final AnniversaryRepository anniversaryRepository;
     private final AnniversaryCustomStore anniversaryCustomStore;
 
-    public List<Anniversary> findAnniversaries(String date, AnniversarySearchType type) {
+    public List<Anniversary> findAnniversaries(String date, ViewType type) {
         //
         return switch (type) {
             case DAILY -> anniversaryRepository.findByDate(date);
-            case WEEKLY -> anniversaryCustomStore.findByMonthlyAnniversaries(date);
+            case WEEKLY -> anniversaryCustomStore.findWeeklyAnniversaries(date);
             default -> anniversaryRepository.findByDateStartingWith(date.substring(0, 7));
         };
     }
@@ -44,15 +46,15 @@ public class AnniversaryService {
         return anniversary.getId();
     }
 
-    public String update(String id, AnniversaryUdo udo) {
+    public String update(ModifyAnniversary command) {
         //
-        Optional<Anniversary> opt = anniversaryRepository.findById(id);
+        Optional<Anniversary> opt = anniversaryRepository.findById(command.getId());
         if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
 
         Anniversary anniversary = opt.get();
-        BeanUtils.copyProperties(udo, anniversary);
+        BeanUtils.copyProperties(command, anniversary);
         anniversaryRepository.save(anniversary);
-        return id;
+        return command.getId();
     }
 
     public void delete(String id) {
