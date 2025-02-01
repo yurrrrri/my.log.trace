@@ -3,7 +3,12 @@ package io.myLogTrace.domain.entity;
 import io.myLogTrace.common.policy.DateTimePolicy;
 import io.myLogTrace.domain.entity.sdo.TodoCdo;
 import io.myLogTrace.domain.vo.Status;
-import lombok.*;
+import io.myLogTrace.repository.jpa.TodoJpo;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
 
@@ -12,8 +17,7 @@ import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Todo {
     //
     private String id;
@@ -26,6 +30,10 @@ public class Todo {
     private Status status; // 상태
     private Long registeredOn; // 등록일시
 
+    public void ChangeStatus(Status status) {
+        this.status = status;
+    }
+
     public static Todo create(TodoCdo cdo) {
         //
         if (cdo.getContents().length() > 30 || cdo.getMemo().length() > 50)
@@ -33,14 +41,15 @@ public class Todo {
         if (!DateTimePolicy.isValid(cdo.getStartDateTime(), cdo.getEndDateTime()))
             throw new IllegalArgumentException(DATETIME_NOT_VALID.name());
 
-        return Todo.builder()
-                .categoryId(cdo.getCategoryId())
-                .contents(cdo.getContents())
-                .memo(cdo.getMemo())
-                .isPeriod(cdo.getIsPeriod())
-                .startDateTime(cdo.getStartDateTime())
-                .endDateTime(cdo.getEndDateTime())
-                .status(cdo.getStatus())
-                .build();
+        Todo todo = new Todo();
+        BeanUtils.copyProperties(cdo, todo);
+        return todo;
+    }
+
+    public static Todo toDomain(TodoJpo jpo) {
+        //
+        Todo todo = new Todo();
+        BeanUtils.copyProperties(jpo, todo);
+        return todo;
     }
 }
