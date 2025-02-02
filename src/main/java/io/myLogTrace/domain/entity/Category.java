@@ -34,9 +34,9 @@ public class Category {
         if (cdo.getName().length() > 10) {
             throw new IllegalArgumentException(LENGTH_OVER_ERROR.name());
         }
-        Category category = new Category();
-        BeanUtils.copyProperties(cdo, category);
-        category.setRemovedFalse();
-        return category;
+        Category Category = new Category();
+        BeanUtils.copyProperties(cdo, Category);
+        Category.setRemovedFalse();
+        return Category;
     }
 }

@@ -7,6 +7,8 @@ import io.myLogTrace.domain.entity.sdo.JournalCdo;
 import io.myLogTrace.service.JournalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -41,8 +43,9 @@ public class JournalFlow {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
+    public ResponseEntity<String> delete(@PathVariable String id) {
         //
         journalService.delete(id);
+        return ResponseEntity.ok(id);
     }
 }

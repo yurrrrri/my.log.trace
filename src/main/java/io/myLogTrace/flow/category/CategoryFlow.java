@@ -6,6 +6,8 @@ import io.myLogTrace.domain.entity.sdo.CategoryCdo;
 import io.myLogTrace.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -28,8 +30,9 @@ public class CategoryFlow {
     }
 
     @PatchMapping("")
-    public void remove(@Valid @RequestBody RemoveCategory command) {
+    public ResponseEntity<String> remove(@Valid @RequestBody RemoveCategory command) {
         //
         categoryService.remove(command);
+        return ResponseEntity.ok(command.getId());
     }
 }

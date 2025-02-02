@@ -22,10 +22,15 @@ import static io.myLogTrace.common.exception.LogExceptionCode.DATA_NOT_FOUND;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class AnniversaryService {
+public class AnniversariesService {
     //
     private final AnniversaryRepository anniversaryRepository;
     private final AnniversaryCustomStore anniversaryCustomStore;
+
+    public Anniversary findAnniversary(String id) {
+        //
+        return this.getAnniversary(id);
+    }
 
     public List<Anniversary> findAnniversaries(String date, ViewType type) {
         //
@@ -48,10 +53,7 @@ public class AnniversaryService {
 
     public String update(ModifyAnniversary command) {
         //
-        Optional<Anniversary> opt = anniversaryRepository.findById(command.getId());
-        if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
-
-        Anniversary anniversary = opt.get();
+        Anniversary anniversary = this.getAnniversary(command.getId());
         BeanUtils.copyProperties(command, anniversary);
         anniversaryRepository.save(anniversary);
         return command.getId();
@@ -60,5 +62,12 @@ public class AnniversaryService {
     public void delete(String id) {
         // 물리 삭제
         anniversaryRepository.deleteById(id);
+    }
+
+    private Anniversary getAnniversary(String id) {
+        //
+        Optional<Anniversary> opt = anniversaryRepository.findById(id);
+        if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
+        return opt.get();
     }
 }

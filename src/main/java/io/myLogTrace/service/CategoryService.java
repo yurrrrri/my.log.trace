@@ -25,6 +25,11 @@ public class CategoryService {
     //
     private final CategoryRepository categoryRepository;
 
+    public Category findCategory(String id) {
+        //
+        return this.getCategory(id);
+    }
+
     public List<Category> findEnableCategories() {
         //
         return categoryRepository.findByRemovedFalseOrderNoAsc();
@@ -36,24 +41,24 @@ public class CategoryService {
             throw new DuplicateDataException(DATA_ALREADY_EXISTS.name());
         }
         Category entity = Category.create(cdo);
-        Category category = categoryRepository.save(entity);
-        return category.getId();
+        Category Category = categoryRepository.save(entity);
+        return Category.getId();
     }
 
     public String update(ModifyCategory command) {
         //
-        Category category = this.getCategory(command.getId());
-        BeanUtils.copyProperties(command, category);
-        categoryRepository.save(category);
+        Category Category = this.getCategory(command.getId());
+        BeanUtils.copyProperties(command, Category);
+        categoryRepository.save(Category);
         return command.getId();
     }
 
     public void remove(RemoveCategory command) {
         //
-        Category category = this.getCategory(command.getId());
-        if (!category.isRemoved()) {
-            category.setRemovedTrue();
-            categoryRepository.save(category);
+        Category Category = this.getCategory(command.getId());
+        if (!Category.isRemoved()) {
+            Category.setRemovedTrue();
+            categoryRepository.save(Category);
         }
     }
 
