@@ -7,5 +7,5 @@ public enum Status {
     IN_PROGRESS,
     PENDING,
     ONEDAY,
-    DONE;
+    DONE,
 }

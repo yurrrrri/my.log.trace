@@ -1,7 +1,6 @@
 package io.myLogTrace.service;
 
 import io.myLogTrace.command.journal.ChangeJournalImage;
-import io.myLogTrace.command.journal.ChangeJournalLocked;
 import io.myLogTrace.command.journal.ModifyJournal;
 import io.myLogTrace.common.exception.DuplicateDataException;
 import io.myLogTrace.domain.entity.Journal;
@@ -64,12 +63,12 @@ public class JournalService {
         return command.getId();
     }
 
-    public String update(ChangeJournalLocked command) {
+    public String update(String id) {
         //
-        Journal journal = this.getJournal(command.getId());
+        Journal journal = this.getJournal(id);
         journal.changeLocked();
         journalRepository.save(journal);
-        return command.getId();
+        return id;
     }
 
     public void delete(String id) {

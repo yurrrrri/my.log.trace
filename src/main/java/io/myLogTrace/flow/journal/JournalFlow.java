@@ -1,13 +1,11 @@
 package io.myLogTrace.flow.journal;
 
 import io.myLogTrace.command.journal.ChangeJournalImage;
-import io.myLogTrace.command.journal.ChangeJournalLocked;
 import io.myLogTrace.command.journal.ModifyJournal;
 import io.myLogTrace.domain.entity.sdo.JournalCdo;
 import io.myLogTrace.service.JournalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +35,9 @@ public class JournalFlow {
     }
 
     @PatchMapping(value = "", headers = { "command=ChangeJournalLocked"})
-    public String update(@Valid @RequestBody ChangeJournalLocked command) {
+    public String update(@Valid @RequestParam String id) {
         //
-        return journalService.update(command);
+        return journalService.update(id);
     }
 
     @DeleteMapping("/{id}")

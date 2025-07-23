@@ -1,7 +1,6 @@
 package io.myLogTrace.service;
 
-import io.myLogTrace.command.category.ModifyCategory;
-import io.myLogTrace.command.category.RemoveCategory;
+import io.myLogTrace.command.ModifyCategory;
 import io.myLogTrace.common.exception.DuplicateDataException;
 import io.myLogTrace.domain.entity.Category;
 import io.myLogTrace.domain.entity.sdo.CategoryCdo;
@@ -53,9 +52,9 @@ public class CategoryService {
         return command.getId();
     }
 
-    public void remove(RemoveCategory command) {
+    public void remove(String id) {
         //
-        Category Category = this.getCategory(command.getId());
+        Category Category = this.getCategory(id);
         if (!Category.isRemoved()) {
             Category.setRemovedTrue();
             categoryRepository.save(Category);
