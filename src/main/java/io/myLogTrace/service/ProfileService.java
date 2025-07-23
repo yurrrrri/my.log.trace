@@ -86,12 +86,12 @@ public class ProfileService {
         return command.getId();
     }
 
-    public String update(ChangeDarkMode command) {
+    public String update(String id) {
         //
-        Profile profile = this.getProfile(command.getId());
+        Profile profile = this.getProfile(id);
         profile.changeDarkMode();
         profileRepository.save(profile);
-        return command.getId();
+        return id;
     }
 
     public String update(ChangeFontType command) {
