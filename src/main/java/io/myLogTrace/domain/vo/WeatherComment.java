@@ -12,6 +12,6 @@ public class WeatherComment {
     //
     @Enumerated(EnumType.STRING)
     private Weather weather;
-    @Column(length = 40)
+    @Column(length = 40, insertable=false, updatable=false)
     private String comment;
 }

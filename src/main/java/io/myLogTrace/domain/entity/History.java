@@ -2,17 +2,17 @@ package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.common.policy.DateTimePolicy;
 import io.myLogTrace.domain.entity.sdo.HistoryCdo;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import io.myLogTrace.repository.jpa.HistoryJpo;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.DATETIME_NOT_VALID;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class History {
@@ -33,5 +33,24 @@ public class History {
         History history = new History();
         BeanUtils.copyProperties(cdo, history);
         return history;
+    }
+
+    public static History toDomain(HistoryJpo jpo) {
+        //
+        History history = new History();
+        BeanUtils.copyProperties(jpo, history);
+        return history;
+    }
+
+    public static List<History> toDomains(List<HistoryJpo> jpos) {
+        //
+        return jpos.stream().map(History::toDomain).toList();
+    }
+
+    public HistoryJpo toJpo() {
+        //
+        HistoryJpo jpo = new HistoryJpo();
+        BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 }

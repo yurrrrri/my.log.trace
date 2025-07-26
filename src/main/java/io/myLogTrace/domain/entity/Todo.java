@@ -4,18 +4,17 @@ import io.myLogTrace.common.policy.DateTimePolicy;
 import io.myLogTrace.domain.entity.sdo.TodoCdo;
 import io.myLogTrace.domain.vo.Status;
 import io.myLogTrace.repository.jpa.TodoJpo;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.DATETIME_NOT_VALID;
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Todo {
@@ -51,5 +50,17 @@ public class Todo {
         Todo todo = new Todo();
         BeanUtils.copyProperties(jpo, todo);
         return todo;
+    }
+
+    public static List<Todo> toDomains(List<TodoJpo> jpos) {
+        //
+        return jpos.stream().map(Todo::toDomain).toList();
+    }
+
+    public TodoJpo toJpo() {
+        //
+        TodoJpo jpo = new TodoJpo();
+        BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 }

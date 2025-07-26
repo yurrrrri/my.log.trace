@@ -4,16 +4,14 @@ import com.querydsl.jpa.impl.JPAQuery;
 import io.myLogTrace.domain.entity.Todo;
 import io.myLogTrace.domain.vo.Status;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "Todo")

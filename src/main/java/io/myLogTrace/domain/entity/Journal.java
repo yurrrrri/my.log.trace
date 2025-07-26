@@ -4,15 +4,15 @@ import io.myLogTrace.domain.entity.sdo.JournalCdo;
 import io.myLogTrace.domain.vo.FeelingComment;
 import io.myLogTrace.domain.vo.WeatherComment;
 import io.myLogTrace.repository.jpa.JournalJpo;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
+
+import java.util.List;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Journal {
@@ -60,5 +60,17 @@ public class Journal {
         Journal journal = new Journal();
         BeanUtils.copyProperties(jpo, journal);
         return journal;
+    }
+
+    public static List<Journal> toDomains(List<JournalJpo> jpos) {
+        //
+        return jpos.stream().map(Journal::toDomain).toList();
+    }
+
+    public JournalJpo toJpo() {
+        //
+        JournalJpo jpo = new JournalJpo();
+        BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 }

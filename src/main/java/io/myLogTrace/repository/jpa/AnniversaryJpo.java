@@ -5,16 +5,14 @@ import io.myLogTrace.domain.entity.Anniversary;
 import io.myLogTrace.domain.vo.DateType;
 import io.myLogTrace.domain.vo.Weight;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "Anniversary")

@@ -4,15 +4,15 @@ import io.myLogTrace.domain.entity.sdo.AnniversaryCdo;
 import io.myLogTrace.domain.vo.DateType;
 import io.myLogTrace.domain.vo.Weight;
 import io.myLogTrace.repository.jpa.AnniversaryJpo;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
+
+import java.util.List;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Anniversary {
@@ -40,5 +40,17 @@ public class Anniversary {
         Anniversary anniversary = new Anniversary();
         BeanUtils.copyProperties(cdo, anniversary);
         return anniversary;
+    }
+
+    public static List<Anniversary> toDomains(List<AnniversaryJpo> jpos) {
+        //
+        return jpos.stream().map(Anniversary::toDomain).toList();
+    }
+
+    public AnniversaryJpo toJpo() {
+        //
+        AnniversaryJpo jpo = new AnniversaryJpo();
+        BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 }

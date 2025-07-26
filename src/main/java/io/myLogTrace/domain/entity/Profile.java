@@ -2,18 +2,18 @@ package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.domain.entity.sdo.ProfileCdo;
 import io.myLogTrace.domain.vo.FontType;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import io.myLogTrace.repository.jpa.ProfileJpo;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Profile {
@@ -72,5 +72,24 @@ public class Profile {
         Profile profile = new Profile();
         BeanUtils.copyProperties(cdo, profile);
         return profile;
+    }
+
+    public static Profile toDomain(ProfileJpo jpo) {
+        //
+        Profile profile = new Profile();
+        BeanUtils.copyProperties(jpo, profile);
+        return profile;
+    }
+
+    public static List<Profile> toDomains(List<ProfileJpo> jpos) {
+        //
+        return jpos.stream().map(Profile::toDomain).toList();
+    }
+
+    public ProfileJpo toJpo() {
+        //
+        ProfileJpo jpo = new ProfileJpo();
+        BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 }

@@ -1,15 +1,15 @@
 package io.myLogTrace.repository.jpa;
 
+import io.myLogTrace.domain.entity.TranscriptionNote;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "TranscriptionNote")
@@ -31,4 +31,9 @@ public class TranscriptionNoteJpo {
     private Long registeredOn;
     @LastModifiedDate
     private Long modifiedOn;
+
+    public List<TranscriptionNote> toDomains(List<TranscriptionNoteJpo> jpos) {
+        //
+        return jpos.stream().map(TranscriptionNote::toDomain).toList();
+    }
 } 

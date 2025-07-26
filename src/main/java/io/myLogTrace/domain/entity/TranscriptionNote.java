@@ -1,13 +1,12 @@
 package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.repository.jpa.TranscriptionNoteJpo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.AccessLevel;
+import lombok.*;
+
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TranscriptionNote {
@@ -38,5 +37,12 @@ public class TranscriptionNote {
     public static List<TranscriptionNote> toDomains(List<TranscriptionNoteJpo> jpos) {
         //
         return jpos.stream().map(TranscriptionNote::toDomain).toList();
+    }
+
+    public TranscriptionNoteJpo toJpo() {
+        //
+        TranscriptionNoteJpo jpo = new TranscriptionNoteJpo();
+        org.springframework.beans.BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 } 

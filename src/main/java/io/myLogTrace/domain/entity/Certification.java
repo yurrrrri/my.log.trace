@@ -1,15 +1,16 @@
 package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.domain.entity.sdo.CertificationCdo;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import io.myLogTrace.repository.jpa.CertificationJpo;
+import lombok.*;
 import org.springframework.beans.BeanUtils;
+
+import java.util.List;
 
 import static io.myLogTrace.common.exception.LogExceptionCode.LENGTH_OVER_ERROR;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Certification {
@@ -31,5 +32,24 @@ public class Certification {
         Certification certification = new Certification();
         BeanUtils.copyProperties(cdo, certification);
         return certification;
+    }
+
+    public static Certification toDomain(CertificationJpo jpo) {
+        //
+        Certification certification = new Certification();
+        BeanUtils.copyProperties(jpo, certification);
+        return certification;
+    }
+
+    public static List<Certification> toDomains(List<CertificationJpo> jpos) {
+        //
+        return jpos.stream().map(Certification::toDomain).toList();
+    }
+
+    public CertificationJpo toJpo() {
+        //
+        CertificationJpo jpo = new CertificationJpo();
+        BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 }

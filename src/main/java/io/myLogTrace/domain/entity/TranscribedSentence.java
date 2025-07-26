@@ -1,14 +1,12 @@
 package io.myLogTrace.domain.entity;
 
 import io.myLogTrace.repository.jpa.TranscribedSentenceJpo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.AccessLevel;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TranscribedSentence {
@@ -25,5 +23,12 @@ public class TranscribedSentence {
     public static List<TranscribedSentence> toDomains(List<TranscribedSentenceJpo> jpos) {
         //
         return jpos.stream().map(TranscribedSentence::toDomain).toList();
+    }
+
+    public TranscribedSentenceJpo toJpo() {
+        //
+        TranscribedSentenceJpo jpo = new TranscribedSentenceJpo();
+        org.springframework.beans.BeanUtils.copyProperties(this, jpo);
+        return jpo;
     }
 } 
