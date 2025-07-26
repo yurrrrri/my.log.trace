@@ -57,7 +57,7 @@ public class ProfileFlow {
     }
 
     @PatchMapping(value = "", headers = { "command=ChangeDarkMode"})
-    public String update(@Valid @RequestParam String id) {
+    public String update(@PathVariable String id) {
         //
         return profileService.update(id);
     }

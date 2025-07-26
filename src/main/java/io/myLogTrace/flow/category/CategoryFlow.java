@@ -28,7 +28,7 @@ public class CategoryFlow {
     }
 
     @PatchMapping("")
-    public ResponseEntity<String> remove(@Valid @RequestParam String id) {
+    public ResponseEntity<String> remove(@PathVariable String id) {
         //
         categoryService.remove(id);
         return ResponseEntity.ok(id);

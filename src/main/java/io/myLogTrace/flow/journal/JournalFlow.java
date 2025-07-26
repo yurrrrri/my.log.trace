@@ -28,14 +28,14 @@ public class JournalFlow {
         return journalService.update(command);
     }
 
-    @PatchMapping(value = "", headers = { "command=ChangeJournalImage"})
+    @PatchMapping(value = "", headers = {"command=ChangeJournalImage"})
     public String update(@Valid @RequestBody ChangeJournalImage command) {
         //
         return journalService.update(command);
     }
 
-    @PatchMapping(value = "", headers = { "command=ChangeJournalLocked"})
-    public String update(@Valid @RequestParam String id) {
+    @PatchMapping(value = "", headers = {"command=ChangeJournalLocked"})
+    public String update(@PathVariable String id) {
         //
         return journalService.update(id);
     }
