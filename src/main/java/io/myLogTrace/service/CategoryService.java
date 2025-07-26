@@ -5,6 +5,7 @@ import io.myLogTrace.common.exception.DuplicateDataException;
 import io.myLogTrace.domain.entity.Category;
 import io.myLogTrace.domain.entity.sdo.CategoryCdo;
 import io.myLogTrace.repository.CategoryRepository;
+import io.myLogTrace.repository.jpa.CategoryJpo;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class CategoryService {
 
     public List<Category> findEnableCategories() {
         //
-        return categoryRepository.findByRemovedFalseOrderNoAsc();
+        return Category.toDomains(categoryRepository.findByRemovedFalseOrderByOrderNoAsc());
     }
 
     public String create(CategoryCdo cdo) {
@@ -40,15 +41,15 @@ public class CategoryService {
             throw new DuplicateDataException(DATA_ALREADY_EXISTS.name());
         }
         Category entity = Category.create(cdo);
-        Category Category = categoryRepository.save(entity);
-        return Category.getId();
+        CategoryJpo categoryJpo = categoryRepository.save(entity.toJpo());
+        return categoryJpo.getId();
     }
 
     public String update(ModifyCategory command) {
         //
         Category Category = this.getCategory(command.getId());
         BeanUtils.copyProperties(command, Category);
-        categoryRepository.save(Category);
+        categoryRepository.save(Category.toJpo());
         return command.getId();
     }
 
@@ -57,14 +58,14 @@ public class CategoryService {
         Category Category = this.getCategory(id);
         if (!Category.isRemoved()) {
             Category.setRemovedTrue();
-            categoryRepository.save(Category);
+            categoryRepository.save(Category.toJpo());
         }
     }
 
     private Category getCategory(String id) {
         //
-        Optional<Category> opt = categoryRepository.findById(id);
+        Optional<CategoryJpo> opt = categoryRepository.findById(id);
         if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
-        return opt.get();
+        return Category.toDomain(opt.get());
     }
 }

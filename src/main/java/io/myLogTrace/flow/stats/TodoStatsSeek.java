@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping("/todo-stats")
+@RequestMapping("/api/todo-stats")
 @RestController
 public class TodoStatsSeek {
 }

@@ -1,11 +1,8 @@
 package io.myLogTrace.repository;
 
-import io.myLogTrace.domain.entity.History;
+import io.myLogTrace.repository.jpa.HistoryJpo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface HistoryRepository extends JpaRepository<History, String> {
+public interface HistoryRepository extends JpaRepository<HistoryJpo, String> {
     //
-    List<History> findAllOrderByStartDateTimeAsc();
 }

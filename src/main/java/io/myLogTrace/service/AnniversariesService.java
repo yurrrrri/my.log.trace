@@ -5,6 +5,7 @@ import io.myLogTrace.common.exception.DuplicateDataException;
 import io.myLogTrace.domain.entity.Anniversary;
 import io.myLogTrace.domain.entity.sdo.AnniversaryCdo;
 import io.myLogTrace.repository.AnniversaryRepository;
+import io.myLogTrace.repository.jpa.AnniversaryJpo;
 import io.myLogTrace.service.customstore.AnniversaryCustomStore;
 import io.myLogTrace.service.vo.ViewType;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,51 +24,51 @@ import static io.myLogTrace.common.exception.LogExceptionCode.DATA_NOT_FOUND;
 @RequiredArgsConstructor
 @Transactional
 public class AnniversariesService {
+  //
+  private final AnniversaryRepository anniversaryRepository;
+  private final AnniversaryCustomStore anniversaryCustomStore;
+
+  public Anniversary findAnniversary(String id) {
     //
-    private final AnniversaryRepository anniversaryRepository;
-    private final AnniversaryCustomStore anniversaryCustomStore;
+    return this.getAnniversary(id);
+  }
 
-    public Anniversary findAnniversary(String id) {
-        //
-        return this.getAnniversary(id);
-    }
+  public List<Anniversary> findAnniversaries(String date, ViewType type) {
+    //
+    return switch (type) {
+      case DAILY -> anniversaryCustomStore.findDailyAnniversaries(date);
+      case WEEKLY -> anniversaryCustomStore.findWeeklyAnniversaries(date);
+      default -> anniversaryCustomStore.findMonthlyAnniversaries(date);
+    };
+  }
 
-    public List<Anniversary> findAnniversaries(String date, ViewType type) {
-        //
-        return switch (type) {
-            case DAILY -> anniversaryRepository.findByDate(date);
-            case WEEKLY -> anniversaryCustomStore.findWeeklyAnniversaries(date);
-            default -> anniversaryRepository.findByDateStartingWith(date.substring(0, 7));
-        };
+  public String create(AnniversaryCdo cdo) {
+    //
+    if (anniversaryRepository.existsByDateAndName(cdo.getDate(), cdo.getName())) {
+      throw new DuplicateDataException(DATA_ALREADY_EXISTS.name());
     }
+    Anniversary entity = Anniversary.create(cdo);
+    AnniversaryJpo anniversaryJpo = anniversaryRepository.save(entity.toJpo());
+    return anniversaryJpo.getId();
+  }
 
-    public String create(AnniversaryCdo cdo) {
-        //
-        if (anniversaryRepository.existsByDateAndName(cdo.getDate(), cdo.getName())) {
-            throw new DuplicateDataException(DATA_ALREADY_EXISTS.name());
-        }
-        Anniversary entity = Anniversary.create(cdo);
-        Anniversary anniversary = anniversaryRepository.save(entity);
-        return anniversary.getId();
-    }
+  public String update(ModifyAnniversary command) {
+    //
+    Anniversary anniversary = this.getAnniversary(command.getId());
+    BeanUtils.copyProperties(command, anniversary);
+    anniversaryRepository.save(anniversary.toJpo());
+    return command.getId();
+  }
 
-    public String update(ModifyAnniversary command) {
-        //
-        Anniversary anniversary = this.getAnniversary(command.getId());
-        BeanUtils.copyProperties(command, anniversary);
-        anniversaryRepository.save(anniversary);
-        return command.getId();
-    }
+  public void delete(String id) {
+    // 물리 삭제
+    anniversaryRepository.deleteById(id);
+  }
 
-    public void delete(String id) {
-        // 물리 삭제
-        anniversaryRepository.deleteById(id);
-    }
-
-    private Anniversary getAnniversary(String id) {
-        //
-        Optional<Anniversary> opt = anniversaryRepository.findById(id);
-        if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
-        return opt.get();
-    }
+  private Anniversary getAnniversary(String id) {
+    //
+    Optional<AnniversaryJpo> opt = anniversaryRepository.findById(id);
+    if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
+    return Anniversary.toDomain(opt.get());
+  }
 }

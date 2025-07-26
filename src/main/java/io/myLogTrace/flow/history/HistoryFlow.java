@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/histories")
+@RequestMapping("/api/histories")
 @RestController
 public class HistoryFlow {
     //

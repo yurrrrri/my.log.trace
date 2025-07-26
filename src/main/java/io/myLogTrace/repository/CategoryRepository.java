@@ -1,12 +1,12 @@
 package io.myLogTrace.repository;
 
-import io.myLogTrace.domain.entity.Category;
+import io.myLogTrace.repository.jpa.CategoryJpo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CategoryRepository extends JpaRepository<Category, String> {
-    //
-    List<Category> findByRemovedFalseOrderNoAsc();
-    boolean existsByName(String name);
+public interface CategoryRepository extends JpaRepository<CategoryJpo, String> {
+  //
+  List<CategoryJpo> findByRemovedFalseOrderByOrderNoAsc();
+  boolean existsByName(String name);
 }

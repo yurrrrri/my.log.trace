@@ -9,28 +9,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/categories")
+@RequestMapping("/api/categories")
 @RestController
 public class CategoryFlow {
+  //
+  private final CategoryService categoryService;
+
+  @PostMapping("")
+  public String create(@Valid @RequestBody CategoryCdo cdo) {
     //
-    private final CategoryService categoryService;
+    return categoryService.create(cdo);
+  }
 
-    @PostMapping("")
-    public String create(@Valid @RequestBody CategoryCdo cdo) {
-        //
-        return categoryService.create(cdo);
-    }
+  @PutMapping("")
+  public String update(@Valid @RequestBody ModifyCategory command) {
+    //
+    return categoryService.update(command);
+  }
 
-    @PutMapping("")
-    public String update(@Valid @RequestBody ModifyCategory command) {
-        //
-        return categoryService.update(command);
-    }
-
-    @PatchMapping("")
-    public ResponseEntity<String> remove(@PathVariable String id) {
-        //
-        categoryService.remove(id);
-        return ResponseEntity.ok(id);
-    }
+  @PatchMapping("")
+  public ResponseEntity<String> remove(@PathVariable String id) {
+    //
+    categoryService.remove(id);
+    return ResponseEntity.ok(id);
+  }
 }

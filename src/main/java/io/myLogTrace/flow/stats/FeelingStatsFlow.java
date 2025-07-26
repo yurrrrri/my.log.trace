@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping("/feeling-stats")
+@RequestMapping("/api/feeling-stats")
 @RestController
 public class FeelingStatsFlow {
 }

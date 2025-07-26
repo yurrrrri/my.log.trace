@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/anniversaries")
+@RequestMapping("/api/anniversaries")
 @RestController
 public class AnniversaryFlow {
     //

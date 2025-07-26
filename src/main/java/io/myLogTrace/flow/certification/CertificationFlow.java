@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/certifications")
+@RequestMapping("/api/certifications")
 @RestController
 public class CertificationFlow {
     //

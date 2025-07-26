@@ -1,11 +1,8 @@
 package io.myLogTrace.repository;
 
-import io.myLogTrace.domain.entity.Certification;
+import io.myLogTrace.repository.jpa.CertificationJpo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface CertificationRepository extends JpaRepository<Certification, String> {
+public interface CertificationRepository extends JpaRepository<CertificationJpo, String> {
     //
-    List<Certification> findAllOrderByRegisteredOnAsc();
 }

@@ -5,6 +5,7 @@ import io.myLogTrace.common.exception.InvalidPasswordException;
 import io.myLogTrace.domain.entity.Profile;
 import io.myLogTrace.domain.entity.sdo.ProfileCdo;
 import io.myLogTrace.repository.ProfileRepository;
+import io.myLogTrace.repository.jpa.ProfileJpo;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +31,15 @@ public class ProfileService {
     public String create(ProfileCdo cdo) {
         //
         Profile entity = Profile.create(cdo);
-        Profile profile = profileRepository.save(entity);
-        return profile.getId();
+        ProfileJpo profileJpo = profileRepository.save(entity.toJpo());
+        return profileJpo.getId();
     }
 
     public String update(ChangeName command) {
         //
         Profile profile = this.getProfile(command.getId());
         profile.changeName(command.getName());
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return command.getId();
     }
 
@@ -46,7 +47,7 @@ public class ProfileService {
         //
         Profile profile = this.getProfile(command.getId());
         profile.changeBirthDate(command.getBirthDate());
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return command.getId();
     }
 
@@ -54,7 +55,7 @@ public class ProfileService {
         //
         Profile profile = this.getProfile(command.getId());
         profile.changePhoneNumber(command.getPhoneNumber());
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return command.getId();
     }
 
@@ -62,7 +63,7 @@ public class ProfileService {
         //
         Profile profile = this.getProfile(command.getId());
         profile.changeRemark(command.getRemark());
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return command.getId();
     }
 
@@ -74,7 +75,7 @@ public class ProfileService {
         }
 
         profile.changePassword(command.getNewPassword());
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return command.getId();
     }
 
@@ -82,7 +83,7 @@ public class ProfileService {
         //
         Profile profile = this.getProfile(command.getId());
         profile.changeNotificationTime(command.getNotificationTime());
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return command.getId();
     }
 
@@ -90,7 +91,7 @@ public class ProfileService {
         //
         Profile profile = this.getProfile(id);
         profile.changeDarkMode();
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return id;
     }
 
@@ -98,14 +99,14 @@ public class ProfileService {
         //
         Profile profile = this.getProfile(command.getId());
         profile.changeFontType(command.getFontType());
-        profileRepository.save(profile);
+        profileRepository.save(profile.toJpo());
         return command.getId();
     }
 
     private Profile getProfile(String id) {
         //
-        Optional<Profile> opt = profileRepository.findById(id);
+        Optional<ProfileJpo> opt = profileRepository.findById(id);
         if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
-        return opt.get();
+        return Profile.toDomain(opt.get());
     }
 }

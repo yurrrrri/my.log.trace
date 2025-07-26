@@ -4,6 +4,7 @@ import io.myLogTrace.command.ModifyCertification;
 import io.myLogTrace.domain.entity.Certification;
 import io.myLogTrace.domain.entity.sdo.CertificationCdo;
 import io.myLogTrace.repository.CertificationRepository;
+import io.myLogTrace.repository.jpa.CertificationJpo;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,21 +30,21 @@ public class CertificationService {
 
     public List<Certification> findCertifications() {
         //
-        return certificationRepository.findAllOrderByRegisteredOnAsc();
+        return Certification.toDomains(certificationRepository.findAll());
     }
 
     public String create(CertificationCdo cdo) {
         //
         Certification entity = Certification.create(cdo);
-        Certification certification = certificationRepository.save(entity);
-        return certification.getId();
+        CertificationJpo certificationJpo = certificationRepository.save(entity.toJpo());
+        return certificationJpo.getId();
     }
 
     public String update(ModifyCertification command) {
         //
         Certification certification = this.getCertification(command.getId());
         BeanUtils.copyProperties(command, certification);
-        certificationRepository.save(certification);
+        certificationRepository.save(certification.toJpo());
         return command.getId();
     }
 
@@ -54,8 +55,8 @@ public class CertificationService {
 
     private Certification getCertification(String id) {
         //
-        Optional<Certification> opt = certificationRepository.findById(id);
+        Optional<CertificationJpo> opt = certificationRepository.findById(id);
         if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
-        return opt.get();
+        return Certification.toDomain(opt.get());
     }
 }

@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/profiles")
+@RequestMapping("/api/profiles")
 @RestController
 public class ProfileFlow {
     //

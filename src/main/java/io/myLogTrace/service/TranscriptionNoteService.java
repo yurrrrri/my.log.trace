@@ -1,12 +1,12 @@
 package io.myLogTrace.service;
 
 import io.myLogTrace.domain.entity.TranscriptionNote;
-import io.myLogTrace.domain.entity.sdo.TranscriptionNoteCdo;
 import io.myLogTrace.domain.entity.sdo.TranscribedSentenceCdo;
-import io.myLogTrace.repository.TranscriptionNoteRepository;
+import io.myLogTrace.domain.entity.sdo.TranscriptionNoteCdo;
 import io.myLogTrace.repository.TranscribedSentenceRepository;
-import io.myLogTrace.repository.jpa.TranscriptionNoteJpo;
+import io.myLogTrace.repository.TranscriptionNoteRepository;
 import io.myLogTrace.repository.jpa.TranscribedSentenceJpo;
+import io.myLogTrace.repository.jpa.TranscriptionNoteJpo;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -64,21 +64,6 @@ public class TranscriptionNoteService {
     public void delete(String id) {
         //
         noteRepository.deleteById(id);
-    }
-
-    public TranscriptionNoteJpo find(String id) {
-        //
-        return getNote(id);
-    }
-
-    public List<TranscriptionNoteJpo> findAll() {
-        //
-        return noteRepository.findAll();
-    }
-
-    public List<TranscriptionNote> toDomains() {
-        //
-        return TranscriptionNote.toDomains(this.findAll());
     }
 
     public TranscriptionNote findById(String id) {

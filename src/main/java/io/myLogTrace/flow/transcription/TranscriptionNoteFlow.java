@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/transcription-notes")
+@RequestMapping("/api/transcription-notes")
 @RestController
 public class TranscriptionNoteFlow {
     //

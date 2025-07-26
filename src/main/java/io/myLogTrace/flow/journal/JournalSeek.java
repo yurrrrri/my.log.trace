@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/journals")
+@RequestMapping("/api/journals")
 @RestController
 public class JournalSeek {
     //
