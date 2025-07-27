@@ -21,19 +21,19 @@ public class AnniversarySeek {
         return anniversaryService.findAnniversary(id);
     }
 
-    @GetMapping("/daily")
+    @PostMapping("/daily")
     public List<Anniversary> findDailyAnniversaries(@RequestParam String date) {
         //
         return anniversaryService.findAnniversaries(date, ViewType.DAILY);
     }
 
-    @GetMapping("/weekly")
+    @PostMapping("/weekly")
     public List<Anniversary> findWeeklyAnniversaries(@RequestParam String date) {
         //
         return anniversaryService.findAnniversaries(date, ViewType.WEEKLY);
     }
 
-    @GetMapping("/monthly")
+    @PostMapping("/monthly")
     public List<Anniversary> findMonthlyAnniversaries(@RequestParam String date) {
         //
         return anniversaryService.findAnniversaries(date, ViewType.MONTHLY);
