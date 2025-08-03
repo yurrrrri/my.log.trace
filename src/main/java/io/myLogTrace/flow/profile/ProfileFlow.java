@@ -15,7 +15,7 @@ public class ProfileFlow {
     private final ProfileService profileService;
 
     @PostMapping("")
-    public String create(ProfileCdo cdo) {
+    public String create(@Valid @RequestBody ProfileCdo cdo) {
         //
         return profileService.create(cdo);
     }
@@ -56,7 +56,7 @@ public class ProfileFlow {
         return profileService.update(command);
     }
 
-    @PatchMapping(value = "", headers = { "command=ChangeDarkMode"})
+    @PatchMapping(value = "/{id}", headers = { "command=ChangeDarkMode"})
     public String update(@PathVariable String id) {
         //
         return profileService.update(id);

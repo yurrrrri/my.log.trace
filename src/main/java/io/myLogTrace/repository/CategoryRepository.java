@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<CategoryJpo, String> {
   //
-  List<CategoryJpo> findByRemovedFalseOrderByOrderNoAsc();
+  List<CategoryJpo> findByOrderByOrderNoAsc();
   boolean existsByName(String name);
 }

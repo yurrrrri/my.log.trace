@@ -1,6 +1,8 @@
 package io.myLogTrace.service;
 
-import io.myLogTrace.command.ModifyCategory;
+import io.myLogTrace.command.category.ModifyCategory;
+import io.myLogTrace.command.category.ModifyCategoryOrder;
+import io.myLogTrace.command.vo.OrderInfo;
 import io.myLogTrace.common.exception.DuplicateDataException;
 import io.myLogTrace.domain.entity.Category;
 import io.myLogTrace.domain.entity.sdo.CategoryCdo;
@@ -22,50 +24,61 @@ import static io.myLogTrace.common.exception.LogExceptionCode.DATA_NOT_FOUND;
 @RequiredArgsConstructor
 @Transactional
 public class CategoryService {
+  //
+  private final CategoryRepository categoryRepository;
+
+  public Category findCategory(String id) {
     //
-    private final CategoryRepository categoryRepository;
+    return this.getCategory(id);
+  }
 
-    public Category findCategory(String id) {
-        //
-        return this.getCategory(id);
-    }
+  public List<Category> findEnableCategories() {
+    //
+    return Category.toDomains(categoryRepository.findByOrderByOrderNoAsc());
+  }
 
-    public List<Category> findEnableCategories() {
-        //
-        return Category.toDomains(categoryRepository.findByRemovedFalseOrderByOrderNoAsc());
+  public Category create(CategoryCdo cdo) {
+    //
+    if (categoryRepository.existsByName(cdo.getName())) {
+      throw new DuplicateDataException(DATA_ALREADY_EXISTS.name());
     }
+    Category entity = Category.create(cdo);
 
-    public String create(CategoryCdo cdo) {
-        //
-        if (categoryRepository.existsByName(cdo.getName())) {
-            throw new DuplicateDataException(DATA_ALREADY_EXISTS.name());
-        }
-        Category entity = Category.create(cdo);
-        CategoryJpo categoryJpo = categoryRepository.save(entity.toJpo());
-        return categoryJpo.getId();
-    }
+    CategoryJpo last = categoryRepository.findByOrderByOrderNoAsc().getLast();
+    entity.setOrderNo(last.getOrderNo() + 1);
 
-    public String update(ModifyCategory command) {
-        //
-        Category Category = this.getCategory(command.getId());
-        BeanUtils.copyProperties(command, Category);
-        categoryRepository.save(Category.toJpo());
-        return command.getId();
-    }
+    CategoryJpo categoryJpo = categoryRepository.save(entity.toJpo());
+    return Category.toDomain(categoryJpo);
+  }
 
-    public void remove(String id) {
-        //
-        Category Category = this.getCategory(id);
-        if (!Category.isRemoved()) {
-            Category.setRemovedTrue();
-            categoryRepository.save(Category.toJpo());
-        }
+  public List<String> modifyOrder(ModifyCategoryOrder command) {
+    //
+    for (OrderInfo orderInfo : command.getOrderInfos()) {
+      Category category = this.getCategory(orderInfo.getCategoryId());
+      category.setOrderNo(orderInfo.getOrderNo());
+      categoryRepository.save(category.toJpo());
     }
+    return command.getOrderInfos().stream().map(OrderInfo::getCategoryId).toList();
+  }
 
-    private Category getCategory(String id) {
-        //
-        Optional<CategoryJpo> opt = categoryRepository.findById(id);
-        if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
-        return Category.toDomain(opt.get());
-    }
+  public String update(ModifyCategory command) {
+    //
+    Category Category = this.getCategory(command.getId());
+    BeanUtils.copyProperties(command, Category);
+    categoryRepository.save(Category.toJpo());
+    return command.getId();
+  }
+
+  public void remove(String id) {
+    //
+    Category Category = this.getCategory(id);
+    categoryRepository.delete(Category.toJpo());
+  }
+
+  private Category getCategory(String id) {
+    //
+    Optional<CategoryJpo> opt = categoryRepository.findById(id);
+    if (opt.isEmpty()) throw new EntityNotFoundException(DATA_NOT_FOUND.name());
+    return Category.toDomain(opt.get());
+  }
 }

@@ -20,15 +20,6 @@ public class Category {
   private String name; // 명칭
   private ColorType colorType; // 배경색
   private Integer orderNo; // 정렬 순서
-  private boolean removed; // 삭제여부
-
-  public void setRemovedTrue() {
-    this.removed = true;
-  }
-
-  public void setRemovedFalse() {
-    this.removed = false;
-  }
 
   public static Category create(CategoryCdo cdo) {
     //
@@ -37,7 +28,6 @@ public class Category {
     }
     Category category = new Category();
     BeanUtils.copyProperties(cdo, category);
-    category.setRemovedFalse();
     return category;
   }
 

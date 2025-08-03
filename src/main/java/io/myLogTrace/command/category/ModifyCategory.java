@@ -1,4 +1,4 @@
-package io.myLogTrace.command;
+package io.myLogTrace.command.category;
 
 import io.myLogTrace.domain.vo.ColorType;
 import jakarta.validation.constraints.Size;

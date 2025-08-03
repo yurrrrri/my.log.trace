@@ -20,5 +20,4 @@ public class CategoryJpo {
   @Enumerated(EnumType.STRING)
   private ColorType colorType; // 배경색
   private Integer orderNo; // 정렬 순서
-  private boolean removed; // 삭제여부
 }
